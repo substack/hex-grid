@@ -1,0 +1,36 @@
+{
+  "name": "hex-grid",
+  "version": "1.0.0",
+  "description": "tile hexagons in a grid layout",
+  "main": "index.js",
+  "dependencies": {
+    "isarray": "~0.0.1"
+  },
+  "devDependencies": {
+    "tape": "^2.14.0"
+  },
+  "scripts": {
+    "test": "tape test/*.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/substack/hex-grid.git"
+  },
+  "homepage": "https://github.com/substack/hex-grid",
+  "keywords": [
+    "tessellate",
+    "grid",
+    "hex",
+    "hexagon",
+    "layout",
+    "element",
+    "browser",
+    "position"
+  ],
+  "author": {
+    "name": "James Halliday",
+    "email": "mail@substack.net",
+    "url": "http://substack.net"
+  },
+  "license": "MIT"
+}
