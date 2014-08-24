@@ -1,6 +1,13 @@
+var isarray = require('isarray');
+
 module.exports = function (opts, hexes) {
     var rsize = dims(opts);
-    var hsize = dims(hexes[0]);
+    var hsize = dims(isarray(hexes) ? hexes[0] : hexes);
+    if (!isarray(hexes)) {
+        var h = hexes;
+        hexes = [];
+        for (var i = 0; i < h.n; i++) hexes.push(h);
+    }
     var spacing = opts.spacing === undefined ? 0 : opts.spacing;
     
     var x = 0, y = 0, row = 0;
