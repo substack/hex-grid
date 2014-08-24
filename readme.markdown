@@ -2,6 +2,8 @@
 
 tile hexagons in a grid layout
 
+[![build status](https://secure.travis-ci.org/substack/hex-grid.png)](http://travis-ci.org/substack/hex-grid)
+
 # example
 
 ## in the browser
