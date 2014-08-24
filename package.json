@@ -1,6 +1,6 @@
 {
   "name": "hex-grid",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "tile hexagons in a grid layout",
   "main": "index.js",
   "dependencies": {
