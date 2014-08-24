@@ -25,7 +25,7 @@ module.exports = function (opts, hexes) {
 
 function dims (opts) {
     var s = opts;
-    if (opts.width && opts.height) {
+    if (opts.width || opts.height) {
         s = opts;
     }
     else if (opts.element) {

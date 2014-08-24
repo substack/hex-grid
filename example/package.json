@@ -1,0 +1,5 @@
+{
+  "scripts": {
+    "build": "browserify grid.js > bundle.js"
+  }
+}
