@@ -1,3 +1,6 @@
+var inside = require('point-in-polygon');
+var defined = require('defined');
+
 module.exports = function (opts, hexes) {
     var rsize = dims(opts);
     var hsize = dims(isharray(hexes) ? hexes[0] : hexes);
@@ -6,10 +9,23 @@ module.exports = function (opts, hexes) {
         hexes = [];
         for (var i = 0; i < h.n; i++) hexes.push(h);
     }
-    var spacing = opts.spacing === undefined ? 0 : opts.spacing;
+    var spacing = defined(opts.spacing, 0);
+    var offset = opts.offset;
+    if (!offset && opts.element) {
+        offset = {
+            x: opts.element.offsetLeft,
+            y: opts.element.offsetTop
+        };
+    }
+    if (!offset) {
+        offset = {
+            x: defined(opts.offsetLeft, 0),
+            y: defined(opts.offsetTop, 0)
+        };
+    }
     
     var x = 0, y = 0, row = 0;
-    var results = [];
+    var results = [], points = [];
     for (var i = 0; i < hexes.length; i++) {
         var hex = hexes[i];
         if (hex.style) {
@@ -18,6 +34,19 @@ module.exports = function (opts, hexes) {
             hex.style.top = y;
         }
         results.push({ x: x, y: y });
+        
+        var hw = hsize.width / 2, hh = hsize.height / 2;
+        var cx = x + hw, cy = y + hh;
+        var pts = [
+            [ cx, cy - hh ],
+            [ cx + hw, cy - hh / 2 ],
+            [ cx + hw, cy + hh / 2 ],
+            [ cx, cy + hh ],
+            [ cx - hw, cy + hh / 2 ],
+            [ cx - hw, cy - hh / 2 ]
+        ];
+        points.push(pts);
+        
         x += hsize.width + spacing;
         if (x > rsize.width - hsize.width) {
             y += Math.floor(hsize.height * 3/4) + spacing;
@@ -25,7 +54,22 @@ module.exports = function (opts, hexes) {
             x = (row % 2 ? hsize.width / 2 : 0) + (spacing / 2);
         }
     }
-    return results;
+    var res = {
+        grid: results,
+        points: points,
+        lookupIndex: function (x, y) {
+            var pt = [ x - offset.x, y - offset.y ];
+            for (var i = 0; i < points.length; i++) {
+                if (inside(pt, points[i])) return i;
+            }
+            return -1;
+        },
+        lookup: function (x, y) {
+            var i = res.lookupIndex(x, y);
+            return i >= 0 ? hexes[i] : undefined;
+        }
+    };
+    return res;
 };
 
 function dims (opts) {

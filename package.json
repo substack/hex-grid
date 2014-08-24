@@ -4,7 +4,8 @@
   "description": "tile hexagons in a grid layout",
   "main": "index.js",
   "dependencies": {
-    "isarray": "~0.0.1"
+    "isarray": "~0.0.1",
+    "point-in-polygon": "0.0.0"
   },
   "devDependencies": {
     "tape": "^2.14.0"

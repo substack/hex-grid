@@ -1,5 +1,9 @@
 {
   "scripts": {
-    "build": "browserify grid.js > bundle.js"
+    "build": "browserify grid.js > bundle.js",
+    "watch": "watchify grid.js -o bundle.js -v"
+  },
+  "dependencies": {
+    "defined": "~0.0.0"
   }
 }
