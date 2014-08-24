@@ -19,6 +19,7 @@ Given this html with a `#grid` div full of hex image badges:
     <style>
       h1 { color: yellow; }
       body { background-color: rgb(88,20,94); }
+      .hex { opacity: 0.5; }
     </style>
   </head>
   <body>
@@ -52,7 +53,9 @@ Given this html with a `#grid` div full of hex image badges:
 ```
 
 We can tile the hex images in a tessellating pattern and recompute the
-tesselation when the window size changes:
+tesselation when the window size changes.
+
+When the mouse hovers over a hex tile, its opacity is set to 100%.
 
 ``` js
 var grid = require('hex-grid');
@@ -60,13 +63,23 @@ var grid = require('hex-grid');
 var hexes = document.querySelectorAll('.hex');
 var root = document.querySelector('#grid');
 
+var g;
 function scan () {
-    grid({ element: root, spacing: 4 }, hexes);
+    g = grid({ element: root, spacing: 4 }, hexes);
 }
 
 scan();
 window.addEventListener('resize', scan);
 window.addEventListener('load', scan);
+
+var prev;
+root.addEventListener('mousemove', function (ev) {
+    var h = g.lookup(ev.pageX, ev.pageY);
+    if (!h) return;
+    if (prev) prev.style.opacity = 0.5;
+    h.style.opacity = 1;
+    prev = h;
+});
 ```
 
 ## in node
@@ -77,7 +90,7 @@ You can use these algorithms directly in node too:
 var grid = require('hex-grid');
 
 var res = grid({ width: 45*3+10 }, { width: 45, height: 60, n: 10 });
-console.log(res);
+console.log(res.grid);
 ```
 
 output:
@@ -119,6 +132,34 @@ property indicating the number of hex elements to generate.
 
 In any case, the return value `res` is an array of objects with `x` and `y`
 coordinates.
+
+`opts.offset.x`/`opts.offsetLeft` and `opts.offset.y`/`opts.offsetTop` will
+offset the lookup functions by an appropiate amount.
+
+## var hex = res.lookup(x, y)
+
+Given a coordinate pair `x, y`, return the hex tile `hex` from the original
+`hexes` array.
+
+## var i = res.lookupIndex(x, y)
+
+Given a coordinate pair `x, y`, return the index `i` of the matching tile in the
+`hexes` array.
+
+# properties
+
+## res.grid
+
+An array of the top left bounding box coordinate as objects with `x` and `y`
+properties for each hex tile.
+
+This array uses the same indexes as the `hexes` array.
+
+## res.points
+
+An array of arrays of `[x,y]` points comprising each hexagon.
+
+This array uses the same indexes as the `hexes` array.
 
 # install
 
