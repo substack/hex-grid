@@ -4,7 +4,7 @@ var test = require('tape');
 test('grid n', function (t) {
     t.plan(1);
     var res = grid({ width: 45*3+10 }, { width: 45, height: 60, n: 10 });
-    t.deepEqual(res, [
+    t.deepEqual(res.grid, [
         { x: 45*0, y: 0 },
         { x: 45*1, y: 0 },
         { x: 45*2, y: 0 },

@@ -16,7 +16,7 @@ test('grid', function (t) {
         { width: 45, height: 60 }
     ];
     var res = grid({ width: 45*3+10 }, hexes);
-    t.deepEqual(res, [
+    t.deepEqual(res.grid, [
         { x: 45*0, y: 0 },
         { x: 45*1, y: 0 },
         { x: 45*2, y: 0 },

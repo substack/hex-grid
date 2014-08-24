@@ -28,7 +28,7 @@ test('update', function (t) {
         { x: 45*0+45/2, y: 60*3/4*3 },
         { x: 45*1+45/2, y: 60*3/4*3 }
     ];
-    t.deepEqual(res, expected);
+    t.deepEqual(res.grid, expected);
     
     for (var i = 0; i < 10; i++) {
         t.deepEqual(hexes[i].style, {
