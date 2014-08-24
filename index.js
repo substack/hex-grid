@@ -1,9 +1,7 @@
-var isarray = require('isarray');
-
 module.exports = function (opts, hexes) {
     var rsize = dims(opts);
-    var hsize = dims(isarray(hexes) ? hexes[0] : hexes);
-    if (!isarray(hexes)) {
+    var hsize = dims(isharray(hexes) ? hexes[0] : hexes);
+    if (!isharray(hexes)) {
         var h = hexes;
         hexes = [];
         for (var i = 0; i < h.n; i++) hexes.push(h);
@@ -45,4 +43,8 @@ function dims (opts) {
         width: parseInt(s.width),
         height: parseInt(s.height)
     };
+}
+
+function isharray (xs) {
+    return xs && typeof xs === 'object' && typeof xs.length === 'number';
 }
