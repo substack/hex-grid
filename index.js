@@ -51,7 +51,7 @@ module.exports = function (opts, hexes) {
         if (x > rsize.width - hsize.width) {
             y += Math.floor(hsize.height * 3/4) + spacing;
             row ++;
-            x = (row % 2 ? hsize.width / 2 : 0) + (spacing / 2);
+            x = (row % 2 ? (hsize.width / 2) + (spacing / 2) : 0);
         }
     }
     var res = {
