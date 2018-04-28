@@ -36,8 +36,8 @@ module.exports = function (opts, hexes) {
         var hex = hexes[i];
         if (hex.style) {
             hex.style.position = 'absolute';
-            hex.style.left = x;
-            hex.style.top = y;
+            hex.style.left = x + 'px';
+            hex.style.top = y + 'px';
         }
         results.push({ x: x, y: y });
 
